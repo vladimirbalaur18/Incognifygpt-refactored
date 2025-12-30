@@ -1,0 +1,7 @@
+
+export enum ViolationTypes {
+  EMAIL_ADDRESS = 'EMAIL_ADDRESS',
+  PHONE_NUMBER = 'PHONE_NUMBER',
+  IP_ADDRESS = 'IP_ADDRESS',
+  URL = 'URL'
+}

@@ -83,5 +83,4 @@ class IssueRepository implements IIssueRepository{
     }
 }
 
-// Export class for DI, but prefer using container
 export { IssueRepository };

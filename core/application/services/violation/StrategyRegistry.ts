@@ -1,5 +1,5 @@
-import { IViolationStrategy, ViolationStrategy } from "../domain/violation/ViolationStrategy";
-import { ViolationTypes } from "../domain/violation/ViolationType";
+import { ViolationStrategy, IViolationStrategy } from "@/core/domain/violation/ViolationStrategy";
+import { ViolationTypes } from "@/core/domain/violation/ViolationType";
 
 export interface IStrategyRegistry{
     register(type: ViolationTypes, strategy: ViolationStrategy): void;

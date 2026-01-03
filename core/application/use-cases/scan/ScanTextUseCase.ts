@@ -1,7 +1,6 @@
-import { ScanService } from '../services/ScanService';
-import { IssueService } from '../services/IssueService';
-import { ScanResult } from '../../domain/scanner/Scanner';
-
+import { ScanService } from "@/core/application/services/scan/ScanService";
+import { IssueService } from "@/core/application/services/issue/IssueService";
+import { ScanResult } from "@/core/domain/scanner/Scanner";
 /**
  * Use case: Scan text for violations and record them
  * This encapsulates the business workflow of scanning and recording violations

@@ -1,6 +1,7 @@
-import { Violation } from "../domain/violation/Violation";
-import { IStorageService } from "../services/StorageService";
-import { IssueState, IIssueState } from "../domain/issue/Issue";
+import { IStorageService } from "@/core/application/services/StorageService";
+import { IssueState, IIssueState } from "@/core/domain/issue/Issue";
+import { Violation } from "@/core/domain/violation/Violation";
+
 
 export interface IIssueRepository{
     getIssues(): Promise<IssueState>;

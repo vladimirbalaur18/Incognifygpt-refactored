@@ -1,8 +1,8 @@
 import { IViolationStrategy } from "../violation/ViolationStrategy";
 import { IViolation } from "../violation/Violation";
 import { ViolationTypes } from "../violation/ViolationType";
-import { IStrategyRegistry } from "../../services/StrategyRegistry";
 import { violationFactory } from "../violation/ViolationFactory";
+import { IStrategyRegistry } from "@/core/application/services/violation/StrategyRegistry";
 
 export interface ScanResult {
     hasIssues: boolean;

@@ -1,5 +1,4 @@
-import { IssueService } from '../services/IssueService';
-
+import { IssueService } from "@/core/application/services/issue/IssueService";
 /**
  * Use case: Dismiss an issue
  * Encapsulates the business logic for dismissing issues

@@ -35,7 +35,7 @@ abstract class BaseViolationStrategy extends ViolationStrategy {
  * Strategy for detecting email addresses
  */
 export class EmailViolationStrategy extends BaseViolationStrategy {
-    protected readonly regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$/gi;;
+    protected readonly regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}/gi;;
 
     constructor() {
         super(ViolationTypes.EMAIL_ADDRESS, 'Email');

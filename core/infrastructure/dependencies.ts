@@ -1,14 +1,15 @@
 import { Container } from './Container';
-import { StorageService, IStorageService } from '../services/StorageService';
-import { ViolationStrategyRegistryFactory } from '../services/ViolationStrategyRegistryFactory';
-import { IStrategyRegistry } from '../services/StrategyRegistry';
-import { Scanner } from '../domain/scanner/Scanner';
-import { IssueRepository, IIssueRepository } from '../repositories/IssueRepository';
-import { IssueService } from '../application/services/IssueService';
-import { ScanService } from '../application/services/ScanService';
-import { ScanTextUseCase } from '../application/use-cases/ScanTextUseCase';
-import { DismissIssueUseCase } from '../application/use-cases/DismissIssueUseCase';
-import { GetActiveIssuesUseCase } from '../application/use-cases/GetActiveIssuesUseCase';
+
+import { Scanner } from '@/core/domain/scanner/Scanner';
+import { IssueService } from '@/core/application/services/issue/IssueService';
+import { ScanService } from '@/core/application/services/scan/ScanService';
+import { ScanTextUseCase } from '@/core/application/use-cases/scan/ScanTextUseCase';
+import { DismissIssueUseCase } from '@/core/application/use-cases/issue/DismissIssueUseCase';
+import { GetActiveIssuesUseCase } from '@/core/application/use-cases/issue/GetActiveIssuesUseCase';
+import { IStorageService, StorageService } from '@/core/application/services/StorageService';
+import { IStrategyRegistry } from '@/core/application/services/violation/StrategyRegistry';
+import { ViolationStrategyRegistryFactory } from '@/core/application/services/violation/ViolationStrategyRegistryFactory';
+import { IIssueRepository, IssueRepository } from '@/core/domain/repositories/IssueRepository';
 
 /**
  * Application-wide dependency injection container

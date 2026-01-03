@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { DismissIssueUseCase } from '../DismissIssueUseCase';
-import { IssueService } from '../../services/IssueService';
+import { IssueService } from '../../services/issue/IssueService';
 
 describe('DismissIssueUseCase', () => {
     let useCase: DismissIssueUseCase;

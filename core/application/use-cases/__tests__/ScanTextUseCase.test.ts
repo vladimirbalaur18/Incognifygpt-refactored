@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ScanTextUseCase } from '../ScanTextUseCase';
-import { ScanService } from '../../services/ScanService';
-import { IssueService } from '../../services/IssueService';
+import { ScanService } from '../../services/scan/ScanService';
+import { IssueService } from '../../services/issue/IssueService';
 import { Violation } from '../../../domain/violation/Violation';
 import { ViolationTypes } from '../../../domain/violation/ViolationType';
 import { ScanResult } from '../../../domain/scanner/Scanner';

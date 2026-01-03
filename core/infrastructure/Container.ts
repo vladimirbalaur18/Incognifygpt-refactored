@@ -3,8 +3,8 @@
  * Provides a centralized way to manage and resolve dependencies
  */
 export class Container {
-    private services = new Map<string, () => any>();
-    private singletons = new Map<string, any>();
+    private services = new Map<string, () => unknown>();
+    private singletons = new Map<string, unknown>();
 
     /**
      * Register a factory function for a service

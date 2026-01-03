@@ -1,5 +1,5 @@
-import { IAIServiceAdapter } from "./AIServiceAdapter";
-import { AIServiceType } from "./AIServiceType";
+import { IAIServiceAdapter } from "../../../domain/ai-service/AIServiceAdapter";
+import { AIServiceType } from "../../../domain/ai-service/AIServiceType";
 
 export class AIServiceRegistry {
     private adapters: Map<AIServiceType, IAIServiceAdapter> = new Map();
@@ -14,15 +14,18 @@ export class AIServiceRegistry {
         });
     }
     
-    getAdapterForUrl(url: string, method: string): IAIServiceAdapter | null {
+    getAdapterForUrl(url: string): IAIServiceAdapter | null {
         const hostname = new URL(url).hostname;
         const domainAdapter = this.domainToAdapter.get(hostname);
-        if (domainAdapter && domainAdapter.canHandle(url, method)) {
+
+        console.log("Looking for adapter for URL:", url, "Hostname:", hostname, "Found domain adapter:", domainAdapter);
+        if (domainAdapter && domainAdapter.canHandle(url)) {
             return domainAdapter;
         }
         
         for (const adapter of this.adapters.values()) {
-            if (adapter.canHandle(url, method)) {
+            if (adapter.canHandle(url)) {
+                console.log("Adapter found by canHandle:", adapter.serviceType);
                 return adapter;
             }
         }

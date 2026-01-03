@@ -5,6 +5,7 @@ export default defineBackground(() => {
 
     browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.type === 'SCAN_TEXT') {
+            console.log('[IncognifyGPT] Background received SCAN_TEXT:', message.text);
             handleScanRequest(message.text)
                 .then(sendResponse)
                 .catch((err) => {
@@ -23,8 +24,11 @@ export default defineBackground(() => {
 
 async function handleScanRequest(text: string) {
     try {
+        console.log('[IncognifyGPT] Handling scan request for text:', text);
         const scanTextUseCase = getScanTextUseCase();
-        return await scanTextUseCase.execute(text);
+        const result = await scanTextUseCase.execute(text);
+        console.log('[IncognifyGPT] Scan result:', result);
+        return result;
     } catch (error) {
         console.error('Error in handleScanRequest:', error);
         // Fail safe: return original text with no issues

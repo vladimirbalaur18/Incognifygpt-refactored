@@ -1,19 +1,19 @@
-import { IAIServiceAdapter, MessageExtractionResult } from "../AIServiceAdapter";
-import { AIServiceType } from "../AIServiceType";
+import { ExtractionContext, ExtractionSource, IAIServiceAdapter, MessageExtractionResult } from "@/core/domain/ai-service/AIServiceAdapter";
+import { AIServiceType } from "@/core/domain/ai-service/AIServiceType";
 
 // core/domain/ai-service/adapters/ChatGPTAdapter.ts
 export class ChatGPTAdapter implements IAIServiceAdapter {
     readonly serviceType = AIServiceType.CHATGPT;
     readonly supportedDomains = ['chatgpt.com', 'chat.openai.com'];
     readonly endpointPatterns = ['/conversation'];
+    readonly extractionSource = ExtractionSource.NETWORK;
     
-    canHandle(url: string, method: string): boolean {
-        return this.endpointPatterns.some(pattern => url.includes(pattern)) 
-            && method === 'POST';
+    canHandle(url: string): boolean {
+        return this.endpointPatterns.some(pattern => url.includes(pattern))         
     }
     
-    extractUserMessage(requestBody: unknown): MessageExtractionResult | null {
-        // Current ChatGPT logic from injected.js
+    extractUserMessage({payload: data}: ExtractionContext): MessageExtractionResult | null {
+        const requestBody = JSON.parse(data as string);
         if (requestBody && typeof requestBody === 'object' && 'messages' in requestBody && Array.isArray(requestBody.messages)) {
             for (let i = 0; i < requestBody.messages.length; i++) {
                 const msg = requestBody.messages[i];
@@ -39,11 +39,11 @@ export class ChatGPTAdapter implements IAIServiceAdapter {
     }
     
     updatePayload(
-        payload: unknown,
-        messagePath: (string | number)[],
+        context: ExtractionContext,
         anonymizedText: string
     ): unknown {
         // Navigate path and update
+        const {payload,messagePath} = context.payload as MessageExtractionResult;
         const [index, ...rest] = messagePath;
         let target = payload && typeof payload === 'object' && 'messages' in payload ? (payload.messages as unknown[])[index as number] : null;
         if (!target) return payload;

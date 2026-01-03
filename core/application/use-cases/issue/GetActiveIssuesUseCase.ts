@@ -1,5 +1,5 @@
-import { IssueService } from '../services/IssueService';
-import { Violation } from '../../domain/violation/Violation';
+import { IssueService } from '@/core/application/services/issue/IssueService';
+import { Violation } from '@/core/domain/violation/Violation';
 
 /**
  * Use case: Get active issues

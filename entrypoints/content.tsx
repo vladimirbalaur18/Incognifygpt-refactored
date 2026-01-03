@@ -3,17 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { IssueProvider, useIssues } from '@/context/IssuesContext';
 import { EmailIssueModal } from '@/components/EmailIssueModal';
 import '@/assets/globals.css';
-import { AIServiceRegistryFactory } from '@/core/services/AIServiceRegistryFactory';
+import { AIServiceRegistryFactory } from '@/core/application/services/ai-service/AIServiceRegistryFactory';
 
 export default defineContentScript({
-    matches: ['*://chatgpt.com/*', '*://chat.openai.com/*','*://gemini.google.com/*',
+    matches: ['*://chatgpt.com/*', '*://chat.openai.com/*', '*://gemini.google.com/*',
         '*://ai.google.dev/*'],
     cssInjectionMode: 'ui',
+
     async main(ctx) {
+
         console.log('[IncognifyGPT] Content script loaded.');
 
         // Debug: Visual confirmation
-        document.body.style.borderTop = '5px solid #ff4444';
+        document.body.style.borderTop = '5px solid #449bffff';
         console.log(
             '[IncognifyGPT] If you see a red line at the top of the page, the extension is active.'
         );
@@ -23,8 +25,12 @@ export default defineContentScript({
 
         // 2. Inject the interceptor script
         try {
-            await injectInterceptor();
+            await injectScript('/injected.js', {
+                keepInDom: true,
+            });
+            // await injectInterceptor();
             await initializeInterceptor();
+
 
         } catch (e) {
             console.error('[IncognifyGPT] Failed to inject interceptor:', e);
@@ -127,27 +133,15 @@ function ContentApp() {
     return <EmailIssueModal isOpen={isOpen} onClose={() => setIsOpen(false)} />;
 }
 
-async function injectInterceptor() {
-    const scriptPath = browser.runtime.getURL('/injected.js');
-    console.log('[IncognifyGPT] Injecting script from:', scriptPath);
 
-    const script = document.createElement('script');
-    script.src = scriptPath;
-    script.onload = function () {
-        console.log('[IncognifyGPT] Interceptor script loaded successfully');
-        script.remove();
-    };
-    script.onerror = function (e) {
-        console.error('[IncognifyGPT] Interceptor script failed to load:', e);
-    };
-    (document.head || document.documentElement).appendChild(script);
-}
 
 async function initializeInterceptor() {
     // Create registry instance (or get from background)
     const registry = AIServiceRegistryFactory.create();
-    
+
     // Send registry config to injected script
+
+    console.log('[IncognifyGPT] Initializing interceptor with registry:', registry);
     window.postMessage({
         type: 'INCOGNIFY_INIT_REGISTRY',
         registry: registry, // Or serialize adapter configs

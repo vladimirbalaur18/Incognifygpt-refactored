@@ -1,7 +1,7 @@
-import { IIssueRepository } from '../../repositories/IssueRepository';
-import { Violation } from '../../domain/violation/Violation';
-import { violationFactory } from '../../domain/violation/ViolationFactory';
-import { IssueState } from '../../domain/issue/Issue';
+import { Violation } from '@/core/domain/violation/Violation';
+import { violationFactory } from '@/core/domain/violation/ViolationFactory';
+import { IssueState } from '@/core/domain/issue/Issue';
+import { IIssueRepository } from '@/core/infrastructure/repositories/IssueRepository';
 
 const DISMISS_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 

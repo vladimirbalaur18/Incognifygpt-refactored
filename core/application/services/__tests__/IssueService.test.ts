@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { IssueService } from '../IssueService';
+import { IssueService } from '../issue/IssueService';
 import { IIssueRepository } from '../../../repositories/IssueRepository';
 import { Violation } from '../../../domain/violation/Violation';
 import { ViolationTypes } from '../../../domain/violation/ViolationType';

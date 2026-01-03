@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { IssueRepository } from '../IssueRepository';
-import { IStorageService } from '../../services/StorageService';
-import { IssueState } from '../../domain/issue/Issue';
-import { Violation } from '../../domain/violation/Violation';
-import { ViolationTypes } from '../../domain/violation/ViolationType';
-import { IIssueState } from '../../domain/issue/Issue';
+import { IStorageService } from '@/core/application/services/StorageService';
+import { IssueState, IIssueState } from '../../issue/Issue';
+import { Violation } from '../../violation/Violation';
+import { ViolationTypes } from '../../violation/ViolationType';
+
 
 describe('IssueRepository', () => {
     let repository: IssueRepository;

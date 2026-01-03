@@ -1,44 +1,31 @@
+// core/domain/ai-service/IAIServiceAdapter.ts
+
 import { AIServiceType } from "./AIServiceType";
 
-// core/domain/ai-service/AIServiceAdapter.ts
+ export enum ExtractionSource {
+    NETWORK = 'NETWORK',
+    DOM = 'DOM'
+ }
 export interface MessageExtractionResult {
     userMessage: string | null;
     messagePath: (string | number)[]; // Path to update the message in payload
     payload: unknown; // The parsed request body
 }
+export interface ExtractionContext {
+    payload: unknown; // Could be a JSON object OR a DOM Selector string
+}
 
 export interface IAIServiceAdapter {
-    /**
-     * Unique identifier for this AI service
-     */
     readonly serviceType: AIServiceType;
-    
-    /**
-     * Domain patterns this adapter handles (e.g., ['chatgpt.com', 'chat.openai.com'])
-     */
     readonly supportedDomains: string[];
+    readonly extractionSource: ExtractionSource;
     
-    /**
-     * URL patterns to intercept (e.g., ['/conversation', '/api/conversation'])
-     */
-    readonly endpointPatterns: string[];
+    // We keep this generic so the Registry can filter adapters
+    canHandle(url: string): boolean;
+
+    // This now accepts a generic context instead of just a requestBody
+    extractUserMessage(context: ExtractionContext): MessageExtractionResult | null;
     
-    /**
-     * Check if this adapter can handle the given request
-     */
-    canHandle(url: string, method: string): boolean;
-    
-    /**
-     * Extract user message from the request payload
-     */
-    extractUserMessage(requestBody: unknown): MessageExtractionResult | null;
-    
-    /**
-     * Update the request payload with anonymized text
-     */
-    updatePayload(
-        payload: unknown, 
-        messagePath: (string | number)[], 
-        anonymizedText: string
-    ): unknown;
+    // For DOM, 'updatePayload' might mean manipulating the input field text
+    updatePayload(context: ExtractionContext, anonymizedText: string): void | unknown;
 }

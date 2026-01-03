@@ -1,6 +1,6 @@
 import { Scanner, ScanResult } from '@/core/domain/scanner/Scanner';
 import { Violation } from '@/core/domain/violation/Violation';
-import { IStrategyRegistry } from '../violation/StrategyRegistry';
+import { IStrategyRegistry } from '@/core/application/services/violation/StrategyRegistry';
 
 /**
  * Application service for scanning and anonymizing text
